@@ -163,7 +163,7 @@ const page = () => {
           </div>
           <Card>
             <CardContent>
-              <div className="flex flex-col gap-y-4 md:flex-row md:items-center md:justify-between mb-6">
+              <div className="flex flex-col gap-y-4 md:flex-row md:items-center md:justify-between ">
                 <h6 className="text-primary-text font-medium text-lg">
                   Cohort Retention Analysis
                 </h6>

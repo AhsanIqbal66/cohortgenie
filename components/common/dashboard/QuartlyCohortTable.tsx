@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import TablesToolTip from "../TablesToolTip";
 
 const getColor = (value: any): string => {
-  // Handle null, undefined, or zero values
   if (!value || value === 0) {
     return "bg-gray-100 text-gray-400";
   }
@@ -34,25 +34,19 @@ const getColor = (value: any): string => {
   }
   return "bg-gray-100 text-gray-400";
 };
-const labels = ["Q1", "Q2", "Q3", "Q4"];
 
-export default function QuartlyCohortTable({ labels, matrix, loading }: any) {
-  console.log("🚀 ~ QuartlyCohortTable ~ labels:", labels);
-  console.log("🚀 ~ QuartlyCohortTable ~ quarterMatrix:", matrix);
-  // const filteredMatrix = quarterMatrix
-  //   ?.map((row: any) => {
-  //     const startIndex = row?.findIndex((v: any) => v === 100);
-  //     return startIndex === -1 ? [] : row?.slice(startIndex);
-  //   })
-  //   .filter((row: any) => row?.length > 0);
+export default function QuartlyCohortTable({
+  labels,
+  matrix,
+  loading,
+  Ctype = null,
+}: any) {
   const alignedMatrix =
     matrix?.map((row: any, rIndex: number) => {
-      // rIndex = row number
-      // Slice row so that values start from column rIndex
       return row?.slice(rIndex);
     }) || [];
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="w-full overflow-x-auto pt-10">
       <div className="min-w-[400px] p-1">
         {loading ? (
           <Skeleton className="h-[235px]" />
@@ -77,13 +71,28 @@ export default function QuartlyCohortTable({ labels, matrix, loading }: any) {
                   <div className="text-xs md:text-sm flex items-center justify-center text-primary-text">
                     {labels[rIndex]}
                   </div>
-
                   {row.map((value: any, cIndex: any) => (
-                    <div
-                      key={cIndex}
-                      className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm   ${getColor(value)}`}
-                    >
-                      {value !== 0 ? `${value}%` : ""}
+                    <div key={cIndex} className="relative group">
+                      {value !== 0 && (
+                        <TablesToolTip
+                          value={value}
+                          cohort={labels[rIndex]}
+                          month={cIndex + 1}
+                          type={Ctype === "week" ? "W" : "Q"}
+                        />
+                      )}
+                      <div
+                        className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm min-h-10 ${getColor(
+                          value
+                        )}`}
+                      >
+                        {value !== 0 && (
+                          <div
+                            className={`absolute w-3.5 h-3.5 rounded-full  ${getColor(value)} border-2 border-white left-1/2 -translate-x-1/2 -top-[7px] z-40 hidden group-hover:block`}
+                          ></div>
+                        )}
+                        {value !== 0 ? `${value}%` : ""}
+                      </div>
                     </div>
                   ))}
                 </div>

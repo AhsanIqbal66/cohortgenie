@@ -41,14 +41,14 @@ const DashboardHeader = ({ collapsed, setCollapsed }: any) => {
                 <MenuIcon color="#6B7280" />
               </div>
             )}
-            <div className="relative border border-[#E5E7EB] rounded-lg py-1 flex items-center px-2 lg:px-4 w-full max-w-[250px] sm:max-w-sm lg:w-[380px]">
+            {/* <div className="relative border border-[#E5E7EB] rounded-lg py-1 flex items-center px-2 lg:px-4 w-full max-w-[250px] sm:max-w-sm lg:w-[380px]">
               <Search className="text-secondary-text shrink-0 w-4! h-4! lg:w-4! lg:h-4!" />
               <Input
                 type="search"
                 placeholder="Search analytics, cohorts, reports..."
                 className="text-secondary-text border-none outline-none shadow-none focus-visible:ring-0 w-full text-sm lg:text-base px-1.5 "
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="flex items-center gap-x-4">

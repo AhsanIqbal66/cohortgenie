@@ -82,3 +82,12 @@ export const useGetUser = () => {
 
   return { getUser };
 };
+
+export const getDisconnect = async () => {
+  return handleApiCall(() =>
+    authRequest({
+      url: `${ENDPOINTS.DISSCONNECT}`,
+      method: "GET",
+    })
+  );
+};

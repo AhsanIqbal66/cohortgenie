@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { formatRelativeDate } from "@/utils/DateFormate";
+import Link from "next/link";
+import { getDisconnect, useGetUser } from "@/services/DashboardServices";
+import toast from "react-hot-toast";
 const page = () => {
   const [countdown, setCountdown] = useState("");
   const getNextSyncDate = () => {
@@ -39,6 +42,24 @@ const page = () => {
   const formattedDate = formatRelativeDate(userData?.last_sync, "en-US");
   console.log("🚀 ~ page ~ userData:", userData?.last_sync);
   console.log("🚀 ~ page ~ userData:", userData?.connection_flag);
+
+  const { getUser } = useGetUser();
+
+  const handleDisconnect = async () => {
+    try {
+      const result = await getDisconnect();
+
+      if (result?.status === 200) {
+        toast.success("Disconnected Successfully");
+
+        await getUser();
+      } else {
+        toast.error("Failed to disconnect");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
   return (
     <>
       <div className="flex items-center justify-between mb-4 gap-4">
@@ -50,32 +71,35 @@ const page = () => {
             Visualize how your customer cohorts retain over time
           </p>
         </div>
-        <Button variant={"main"}>
+        <Link
+          href={`/integration?step=2`}
+          className="group flex items-center bg-[#9B6EEE] border text-white border-[#9B6EEE] py-2 px-3 rounded-md group hover:bg-transparent hover:text-[#9B6EEE] transition duration-200 cursor-pointer gap-x-2.5"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            className="w-6! h-6!"
+            className="w-6! h-6! transition duration-200"
           >
             <path
               d="M15 3.98926L9.5 3.99979V8.99981H2V15.9998H10.4998"
-              stroke="white"
+              className="stroke-white group-hover:stroke-[#9B6EEE] transition duration-200"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
               d="M10 21L15.5 20.9895V15.7894H22V9H15.1724"
-              stroke="white"
+              className="stroke-white group-hover:stroke-[#9B6EEE] transition duration-200"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
           Sync All Integrations
-        </Button>
+        </Link>
       </div>
       <Card className="w-full max-w-[900px]">
         <CardContent className="space-y-8">
@@ -132,18 +156,21 @@ const page = () => {
           </div>
 
           <div className="flex items-center justify-end gap-4 ">
-            <Button variant={"main"} className="">
-              <LinkIcon className="w-4 h-4 mr-2" />
-              Reconnect
-            </Button>
-
-            <Button
-              variant="outline"
-              className="border-[#E5E7EB]! text-secondary-text! hover:bg-transparent!"
-            >
-              <Unplug className="w-4 h-4 mr-2 text-secondary-text" />
-              Disconnect
-            </Button>
+            {userData?.connection_flag === true ? (
+              <Button
+                variant="outline"
+                className="group"
+                onClick={handleDisconnect}
+              >
+                <Unplug className="w-4 h-4 mr-2 text-[#9B6EEE] group-hover:text-white" />
+                Disconnect
+              </Button>
+            ) : (
+              <Button variant={"main"} className="">
+                <LinkIcon className="w-4 h-4 mr-2" />
+                Reconnect
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import TablesToolTip from "../TablesToolTip";
 
 const getColor = (value: any): string => {
   if (!value || value === 0) {
@@ -44,20 +45,14 @@ export default function YearlyCohortTable({ matrix, labels, loading }: any) {
 
   const yearHeaders = years.slice(0, alignedMatrix?.[0]?.length || 0);
   const numDataColumns = yearHeaders.length || 0;
-  const gridTemplateStyle = {
-    gridTemplateColumns: `minmax(80px, 1fr) repeat(${numDataColumns}, minmax(80px, 1fr))`,
-  };
 
   return (
-    <div className="w-full overflow-auto">
+    <div className="w-full overflow-auto pt-10">
       {loading ? (
         <Skeleton className="h-[235px]" />
       ) : (
         <>
-          <div
-            className="gap-2 mb-3 px-2 bg-[#F9FAFB] rounded-md"
-            style={gridTemplateStyle}
-          >
+          <div className="grid grid-cols-5 gap-2 mb-3 px-2 bg-[#F9FAFB] rounded-md">
             <div className="rounded-md py-2.5 px-2 text-center text-sm grid-flow-col">
               Cohort
             </div>
@@ -71,18 +66,51 @@ export default function YearlyCohortTable({ matrix, labels, loading }: any) {
             ))}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {alignedMatrix?.map((row: any, rIndex: any) => (
-              <div key={rIndex} className="gap-2" style={gridTemplateStyle}>
+              <div key={rIndex} className="grid grid-cols-5 gap-2">
                 <div className="text-xs md:text-sm flex items-center justify-center text-primary-text">
                   {labels[rIndex]}
                 </div>
                 {row.map((value: any, cIndex: any) => (
-                  <div
-                    key={cIndex}
-                    className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm ${getColor(value)}`}
-                  >
-                    {value !== 0 ? `${value}%` : ""}
+                  // <div key={cIndex} className="relative group">
+                  //   {value !== 0 && (
+                  //     <TablesToolTip
+                  //       value={value}
+                  //       cohort={labels[rIndex]}
+                  //       month={cIndex}
+                  //       type={"Year"}
+                  //     />
+                  //   )}
+                  //   <div
+                  //     className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm min-h-10 ${getColor(
+                  //       value
+                  //     )}`}
+                  //   >
+                  //     {value !== 0 ? `${value}%` : ""}
+                  //   </div>
+                  // </div>
+                  <div key={cIndex} className="relative group">
+                    {value !== 0 && (
+                      <TablesToolTip
+                        value={value}
+                        cohort={labels[rIndex]}
+                        month={cIndex + 1}
+                        type={"Year"}
+                      />
+                    )}
+                    <div
+                      className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm min-h-10 ${getColor(
+                        value
+                      )}`}
+                    >
+                      {value !== 0 && (
+                        <div
+                          className={`absolute w-3.5 h-3.5 rounded-full  ${getColor(value)} border-2 border-white left-1/2 -translate-x-1/2 -top-[7px] z-40 hidden group-hover:block`}
+                        ></div>
+                      )}
+                      {value !== 0 ? `${value}%` : ""}
+                    </div>
                   </div>
                 ))}
               </div>

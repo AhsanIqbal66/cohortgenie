@@ -265,7 +265,7 @@ const page = () => {
               </CardContent>
             </Card>
 
-            <Card className="col-span-1  md:col-span-2">
+            <Card className="col-span-1  md:col-span-2 gap-y-0!">
               <CardHeader className="flex items-center flex-wrap justify-between flex-row">
                 <CardTitle> Cohort Retention Heatmap </CardTitle>
                 <Link
@@ -325,6 +325,7 @@ const page = () => {
                         ?.weekLabels
                     }
                     loading={loading}
+                    Ctype="week"
                   />
                 )}
               </CardContent>

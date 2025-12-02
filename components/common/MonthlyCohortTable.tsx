@@ -1,4 +1,5 @@
 import { Skeleton } from "../ui/skeleton";
+import TablesToolTip from "./TablesToolTip";
 
 const getColor = (value: any): string => {
   // Handle null, undefined, or zero values
@@ -50,19 +51,13 @@ const months = [
 ];
 
 export default function MonthlyCohortTable({ matrix, labels, loading }: any) {
-  // const filteredMatrix = monthsdata
-  //   ?.map((row: any) => {
-  //     const startIndex = row?.findIndex((v: any) => v === 100);
-  //     return startIndex === -1 ? [] : row?.slice(startIndex);
-  //   })
-  //   .filter((row: any) => row?.length > 0);
   const alignedMatrix = matrix?.map((row: any, rIndex: number) => {
     return row.slice(rIndex);
   });
 
   return (
     <div className="w-full overflow-x-auto">
-      <div className="min-w-[870px] p-1">
+      <div className="min-w-[870px] p-1 pt-10">
         {loading ? (
           <Skeleton className="h-[600px]" />
         ) : (
@@ -80,7 +75,7 @@ export default function MonthlyCohortTable({ matrix, labels, loading }: any) {
                 </div>
               ))}
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {alignedMatrix?.map((row: any, rIndex: any) => (
                 <div key={rIndex} className="grid grid-cols-13 gap-2">
                   <div className="text-xs md:text-sm flex items-center justify-center text-primary-text">
@@ -88,11 +83,27 @@ export default function MonthlyCohortTable({ matrix, labels, loading }: any) {
                   </div>
 
                   {row?.map((value: any, cIndex: any) => (
-                    <div
-                      key={cIndex}
-                      className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm min-h-10 ${getColor(value)}`}
-                    >
-                      {value !== 0 ? `${value}%` : ""}
+                    <div key={cIndex} className="relative group">
+                      {value !== 0 && (
+                        <TablesToolTip
+                          value={value}
+                          cohort={labels[rIndex]}
+                          month={months[cIndex]}
+                          type={"Month"}
+                        />
+                      )}
+                      <div
+                        className={`rounded-md py-2.5 px-2 text-center text-xs md:text-sm min-h-10 ${getColor(
+                          value
+                        )}`}
+                      >
+                        {value !== 0 && (
+                          <div
+                            className={`absolute w-3.5 h-3.5 rounded-full  ${getColor(value)} border-2 border-white left-1/2 -translate-x-1/2 -top-[7px] z-40 hidden group-hover:block`}
+                          ></div>
+                        )}
+                        {value !== 0 ? `${value}%` : ""}
+                      </div>
                     </div>
                   ))}
                 </div>
