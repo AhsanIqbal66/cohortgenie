@@ -79,18 +79,8 @@ const InteStep1 = () => {
     }
   }, [userData]);
   const loginWithQuickbooks = () => {
-    window.location.href = `http://localhost:5000/api/quickbooks/auth?user_id=${userData?._id}`;
+    window.location.href = `http://24.199.101.185:3000/api/quickbooks/auth?user_id=${userData?._id}`;
   };
-  // const handleDemoLogin = () => {
-  //   const fetchUser = async () => {
-  //     const { res, data } = await getUser();
-  //     if (res?.status === 200) {
-  //       dispatch(loginDemo(data?.user));
-  //     }
-  //   };
-  //   fetchUser();
-  //   router.push("/dashboard/home");
-  // };
   return (
     <>
       <div className="flex items-center justify-center space-x-2 mb-4">
