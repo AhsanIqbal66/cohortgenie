@@ -20,6 +20,8 @@ import {
   ItegrationsFillIcon,
   ItegrationsIcon,
   MenuIcon,
+  ReceiptItem,
+  ReceiptItemFill,
 } from "@/icons";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -48,6 +50,12 @@ const items = [
     url: "/dashboard/integrations",
     icon: ItegrationsIcon,
     fillIcon: ItegrationsFillIcon,
+  },
+  {
+    title: "Billing",
+    url: "/dashboard/billing",
+    icon: ReceiptItem,
+    fillIcon: ReceiptItemFill,
   },
 ];
 // const items2 = [

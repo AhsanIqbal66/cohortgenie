@@ -335,157 +335,93 @@ export const typeToggleItems = [
 ];
 
 export const quarterLabels = ["Q1", "Q2", "Q3", "Q4"];
-export const eer = {
-  data: {
-    success: true,
-    cohortGenie: {
-      title: "CGP Financial Performance Dashboard",
-      description: "Cohort-based Financial Summary and Trend Analysis",
-      viewType: "month",
-      summary: {
-        cohort: "Dec 25",
-        customers: 124,
-        metrics: {
-          baselineRevenue: "$1,250.00",
-          totalRevenue: 18250.55,
-          totalRefunds: 325.25,
-          netRevenue: 17925.3,
-          expansion: 820.55,
-          contraction: 210.4,
-          churn: 65.1,
-          GDR: "12.50%",
-          NDR: "118.50%",
-          LTV: "$145.20",
-        },
-        period: {
-          startDate: "2025-11-30T19:00:00.000Z",
-          endDate: "2025-12-31T18:59:59.000Z",
-        },
-      },
-      trend: {
-        weekly: [
-          {
-            period: "Week 1",
-            netRevenue: 420.55,
-          },
-          {
-            period: "Week 2",
-            netRevenue: 685.1,
-          },
-          {
-            period: "Week 3",
-            netRevenue: 1125.8,
-          },
-          {
-            period: "Week 4",
-            netRevenue: 780.45,
-          },
-        ],
-        monthly: [
-          { period: "Jan", netRevenue: 240 },
-          { period: "Feb", netRevenue: 310 },
-          { period: "Mar", netRevenue: 380 },
-          { period: "Apr", netRevenue: 450 },
-          { period: "May", netRevenue: 525 },
-          { period: "Jun", netRevenue: 401.75 },
-          { period: "Jul", netRevenue: 387 },
-          { period: "Aug", netRevenue: 1062.4 },
-          { period: "Sep", netRevenue: 1681.4 },
-          { period: "Oct", netRevenue: 7295.34 },
-          { period: "Nov", netRevenue: 1525.6 },
-          { period: "Dec", netRevenue: 2100.8 },
-        ],
-        quarterly: [
-          { period: "Q1", netRevenue: 930 },
-          { period: "Q2", netRevenue: 1380.75 },
-          { period: "Q3", netRevenue: 3130.8 },
-          { period: "Q4", netRevenue: 10921.74 },
-        ],
-        yearly: [
-          { period: "2023", netRevenue: 362.07 },
-          { period: "2024", netRevenue: 387 },
-          { period: "2025", netRevenue: 12875.25 },
-        ],
-      },
-      heatmap: {
-        month: {
-          year: 2025,
-          monthTotals: [
-            240, 310, 380, 450, 525, 401.75, 387, 1062.4, 1681.4, 7295.34,
-            1525.6, 2100.8,
-          ],
-          monthMatrix: [
-            [100, 75, 63, 53, 46, 19, 17, 33, 45, 150, 63, 88],
-            [80, 100, 68, 58, 50, 20, 18, 35, 48, 155, 65, 90],
-            [65, 70, 100, 75, 63, 24, 22, 40, 55, 160, 72, 95],
-            [58, 60, 72, 100, 80, 29, 27, 48, 65, 170, 80, 110],
-            [52, 54, 65, 78, 100, 38, 34, 55, 75, 185, 90, 120],
-            [20, 21, 24, 27, 32, 100, 96, 264, 419, 1816, 65, 92],
-            [18, 19, 22, 25, 29, 104, 100, 275, 434, 1885, 60, 85],
-            [10, 11, 14, 16, 19, 38, 36, 100, 158, 687, 55, 78],
-            [8, 9, 12, 14, 17, 24, 23, 63, 100, 434, 50, 72],
-            [3, 4, 5, 6, 7, 6, 5, 15, 23, 100, 40, 60],
-            [12, 14, 15, 18, 20, 10, 9, 20, 30, 45, 100, 70],
-            [15, 18, 20, 22, 25, 12, 10, 25, 35, 55, 85, 100],
-          ],
-          monthLabels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          weekTotals: [420.55, 685.1, 1125.8, 780.45],
-          weekMatrix: [
-            [100, 58, 37, 54],
-            [62, 100, 61, 48],
-            [35, 60, 100, 69],
-            [50, 55, 70, 100],
-          ],
-          weekLabels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-        },
-        quarter: {
-          year: 2025,
-          quarterTotals: [930, 1380.75, 3130.8, 10921.74],
-          quarterMatrix: [
-            [100, 148, 336, 1175],
-            [67, 100, 227, 790],
-            [29, 44, 100, 349],
-            [8, 12, 29, 100],
-          ],
-          quarterLabels: ["Q1", "Q2", "Q3", "Q4"],
-        },
-        year: {
-          years: [2023, 2024, 2025],
-          yearTotals: [362.07, 387, 12875.25],
-          yearMatrix: [
-            [100, 107, 3556],
-            [94, 100, 3327],
-            [3, 4, 100],
-          ],
-        },
-      },
-      insights: [
-        {
-          title: "Revenue +333.9% MoM",
-          desc: "Revenue moved from $1681.40 (Sep) to $7295.34 (Oct)",
-        },
-        {
-          title: "Top Revenue Month",
-          desc: "Oct generated the highest revenue at $7295.34",
-        },
-        {
-          title: "Churn",
-          desc: "Churn increased by 5.2% from Nov to Dec",
-        },
-      ],
-    },
+export const billingData: any = [
+  {
+    date: "Jan 28, 2025",
+    invoiceId: "INV-2025-001",
+    amount: "49",
+    status: "Paid",
   },
-};
+  {
+    date: "Dec 28, 2024",
+    invoiceId: "INV-2024-012",
+    amount: "49",
+    status: "Paid",
+  },
+  {
+    date: "Nov 28, 2024",
+    invoiceId: "INV-2024-011",
+    amount: "49",
+    status: "Paid",
+  },
+  {
+    date: "Oct 28, 2024",
+    invoiceId: "INV-2024-010",
+    amount: "49",
+    status: "Failed",
+  },
+  {
+    date: "Sep 28, 2024",
+    invoiceId: "INV-2024-009",
+    amount: "49",
+    status: "Paid",
+  },
+];
+
+export const pricingPlans = [
+  {
+    title: "Basic Plan",
+    description:
+      "Best for freelancers or early-stage stores getting started with cohort analytics.",
+    price: "$19",
+    isMonthly: true,
+    features: [
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: false },
+      { text: "Lorem ipsum dolor sit amet", included: false },
+    ],
+    buttonText: "Your Current Plan",
+    buttonVariant: "default", // Gray background
+    highlight: false,
+    highlightColor: "text-green-600", // Green for Basic/Growth
+  },
+  {
+    title: "Pro Plan",
+    // Note: The image shows the description in the dark header, not the white body.
+    // The implementation below places it in the card header for separation.
+    description:
+      "Ideal for growing businesses needing advanced reporting and retention tracking.",
+    price: "$49",
+    isMonthly: true,
+    features: [
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: false },
+    ],
+    buttonText: "Get Started With Pro",
+    buttonVariant: "pro", // Purple background
+    highlight: true,
+    highlightColor: "text-green-400", // Lighter Green for Pro
+  },
+  {
+    title: "Growth Plan",
+    description:
+      "Designed for scaling brands that require deep analytics, automations, and faster syncing.",
+    price: "$99",
+    isMonthly: true,
+    features: [
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+    ],
+    buttonText: "Get Started With Basic",
+    buttonVariant: "outline", // Purple border/text
+    highlight: false,
+    highlightColor: "text-green-600", // Green for Basic/Growth
+  },
+];

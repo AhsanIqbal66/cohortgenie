@@ -62,13 +62,13 @@ const page = () => {
   };
   return (
     <>
-      <div className="flex items-center justify-between mb-4 gap-4">
+      <div className="flex flex-wrap gap-y-3 items-center justify-between mb-4 gap-4">
         <div>
           <h1 className="text-primary-text text-[22px] font-semibold">
-            Retention Heatmap
+            Integrations
           </h1>
           <p className="text-secondary-text text-sm">
-            Visualize how your customer cohorts retain over time
+            Connect your tools to sync business data.
           </p>
         </div>
         <Link
@@ -103,7 +103,7 @@ const page = () => {
       </div>
       <Card className="w-full max-w-[900px]">
         <CardContent className="space-y-8">
-          <div className="flex items-center justify-between gap-x-5">
+          <div className="flex flex-col-reverse sm:flex-row gap-y-2 items-start sm:items-center justify-between gap-x-2.5 lg:gap-x-5">
             <div className="flex items-center gap-x-3 w-full">
               <div className="w-14 h-14 shrink-0 rounded-md flex items-center justify-center bg-[#F4F4F5]">
                 <div className="p-1 bg-white border border-[#E5E7EB] flex items-center justify-center rounded-sm">
@@ -117,20 +117,20 @@ const page = () => {
                 </div>
               </div>
               <div>
-                <h1 className="text-xl font-medium mb-1">QuickBooks Online</h1>
-                <p className="text-sm text-secondary-text">
+                <h1 className="text-lg md:text-xl font-medium mb-1">QuickBooks Online</h1>
+                <p className="text-xs sm:text-sm text-secondary-text">
                   Sync your invoices, revenue, and cohort data directly from
                   QuickBooks.
                 </p>
               </div>
             </div>
             {userData?.connection_flag === true ? (
-              <div className="shrink-0 flex items-center gap-2 bg-[#F0FDF4] text-[#009A3E] px-3 py-1 rounded-full text-sm">
+              <div className="shrink-0 flex ml-auto items-center gap-2 bg-[#F0FDF4] text-[#009A3E] px-3 py-1 rounded-full text-sm">
                 <span className="w-2 h-2 rounded-full bg-[#009A3E]"></span>
                 Connected
               </div>
             ) : (
-              <div className="shrink-0 flex items-center gap-2 bg-red-50 text-red-400 px-3 py-1 rounded-full text-sm">
+              <div className="shrink-0 flex ml-auto  items-center gap-2 bg-red-50 text-red-400 px-3 py-1 rounded-full text-sm">
                 <span className="w-2 h-2 rounded-full bg-red-400"></span>
                 Disconnected
               </div>
@@ -142,7 +142,7 @@ const page = () => {
               <div className="flex items-center gap-2 text-secondary-text text-sm mb-1">
                 <Clock className="w-6! h-6!" /> Last synced
               </div>
-              <p className="text-secondary-text font-semibold">
+              <p className="text-sm md:text-base text-secondary-text font-semibold">
                 {formattedDate}
               </p>
             </div>
@@ -151,7 +151,9 @@ const page = () => {
               <div className="flex items-center gap-2 text-primary-text text-sm mb-2">
                 <CalendarDays className="w-6 h-6" /> Next sync
               </div>
-              <p className="font-semibold text-[#9B6EEE]">{countdown}</p>
+              <p className="text-sm md:text-base font-semibold text-[#9B6EEE]">
+                {countdown}
+              </p>
             </div>
           </div>
 

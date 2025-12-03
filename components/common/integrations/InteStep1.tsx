@@ -79,7 +79,7 @@ const InteStep1 = () => {
     }
   }, [userData]);
   const loginWithQuickbooks = () => {
-    window.location.href = `http://24.199.101.185:3000/api/quickbooks/auth?user_id=${userData?._id}`;
+    window.location.href = `http://24.199.101.185:5000/api/quickbooks/auth?user_id=${userData?._id}`;
   };
   return (
     <>

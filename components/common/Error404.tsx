@@ -8,7 +8,7 @@ import { Card, CardContent } from "../ui/card";
 const Error404 = () => {
   const router = useRouter();
   return (
-    <Card className="min-h-[85vh] border-0 flex flex-col items-center justify-center p-6 bg-white text-primary-text text-center">
+    <Card className="h-screen border-0 flex flex-col items-center justify-center bg-white text-primary-text text-center">
       <CardContent>
         <Image
           src={errorImage}
@@ -19,7 +19,7 @@ const Error404 = () => {
           priority
         />
         <div className="text-center max-w-xl mx-auto">
-          <h1 className="text-xl font-medium text-secondary-text mb-6">
+          <h1 className="text-sm sm:text-base lg:text-xl font-medium text-secondary-text mb-6">
             Oops! It looks like you've followed a broken link or entered a URL
             that doesn't exist here.
           </h1>

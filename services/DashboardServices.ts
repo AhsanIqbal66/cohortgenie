@@ -87,7 +87,13 @@ export const getDisconnect = async () => {
   return handleApiCall(() =>
     authRequest({
       url: `${ENDPOINTS.DISSCONNECT}`,
-      method: "GET",
+    })
+  );
+};
+export const getPlans = async () => {
+  return handleApiCall(() =>
+    authRequest({
+      url: `${ENDPOINTS.PLANS}`,
     })
   );
 };

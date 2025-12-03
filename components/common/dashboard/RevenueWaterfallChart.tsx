@@ -90,7 +90,7 @@ export default function RevenueWaterfallChart({ rawData }: any) {
       </ResponsiveContainer>
 
       <div className="flex flex-wrap items-center gap-3 lg:gap-4 2xl:gap-8 mt-4 justify-center">
-        <LegendItem color="#A78BFA" label="Recurring" />
+        <LegendItem color="#A78BFA" label="Contraction" />
         <LegendItem color="#16A34A" label="Expansion" />
         <LegendItem color="#EF4444" label="Churned" />
       </div>
