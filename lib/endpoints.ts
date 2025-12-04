@@ -20,8 +20,10 @@ const ENDPOINTS: Endpoints = {
   CREDITMEMO: "/quickbooks/creditmemo",
   //
   COMPARISON: "/revenue/compare-periods",
-  DISSCONNECT:"/quickbooks/disconnect",
-  PLANS:"/subscription/billing/plans"
+  DISSCONNECT: "/quickbooks/disconnect",
+  PLANS: "/subscription/billing/plans",
+  ADD_SUBSCRIPTION: "/subscription/billing/add-subscription",
+  UPDATE_MEMBER: "/subscription/billing/update-member",
 };
 
 export { ENDPOINTS };

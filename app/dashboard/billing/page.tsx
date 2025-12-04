@@ -4,13 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckIcon, UploadICon } from "@/icons";
 import { AlertCircle, ArrowRight, X, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Download } from "lucide-react";
 import DynamicTable from "@/components/DynamicTable";
 import { billingData, pricingPlans } from "@/constants";
 import jsPDF from "jspdf";
 import { useGetPlans } from "@/hooks/ReactQueryHooks/dashboard";
 import { PricingCard } from "@/components/common/PricingCard";
+import PlansCardsPopup from "@/components/common/PlansCardsPopup";
 
 const generateReceiptPDF = async (row: any) => {
   const pdf = new jsPDF("p", "mm", "a4");
@@ -131,18 +132,55 @@ export const billingColumns: any = [
 
 const page = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [open, setOpen] = useState(true);
   const planName: string = "Pro Plan";
   const planPrice: string = "$99/month";
   const nextBillingDate: string = "December 4, 2025";
   const status: string = "Active";
-  const handleUpdate = () => {
-    console.log("Update Plan clicked");
-  };
   const handleCancel = () => {
     console.log("Cancel Plan clicked");
   };
-  const { data, isLoading } = useGetPlans();
-  console.log("🚀 ~ page ~ data:", data);
+  const { data: plansData, isLoading } = useGetPlans();
+
+  const [updatedPricingPlans, setUpdatedPricingPlans] = useState(pricingPlans);
+
+  const extractedPlans = useMemo(() => {
+    const plansArray = plansData?.data?.plans?.data ?? [];
+    return plansArray
+      .slice(1, 4)
+      .map((plan: any) => ({
+        planId: plan.id,
+        price: plan.amount / 100,
+      }))
+      .reverse();
+  }, [plansData]);
+
+  useEffect(() => {
+    if (!extractedPlans?.length) return;
+
+    const newPlans = pricingPlans.map((existingPlan, index) => {
+      // Index mapping: swap positions
+      let extractedIndex;
+      if (index === 1) {
+        extractedIndex = 1; // Index 1 gets data from extractedPlans[1] (which is index 3 from original)
+      } else if (index === 3) {
+        extractedIndex = 0; // Index 3 gets data from extractedPlans[0] (which is index 1 from original)
+      } else {
+        extractedIndex = index; // Other indices remain unchanged
+      }
+
+      if (extractedPlans[extractedIndex]) {
+        return {
+          ...existingPlan,
+          planId: extractedPlans[extractedIndex].planId,
+          price: `$${extractedPlans[extractedIndex].price}`,
+        };
+      }
+      return existingPlan;
+    });
+
+    setUpdatedPricingPlans(newPlans);
+  }, [extractedPlans, pricingPlans]);
   return (
     <>
       <div className="mb-8">
@@ -188,7 +226,7 @@ const page = () => {
                 <XIcon className="w-4 h-4" /> Cancel Plan
               </Button>
               <Button
-                onClick={handleUpdate}
+                onClick={() => setOpen(true)}
                 variant={"main"}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -235,16 +273,13 @@ const page = () => {
           <h1 className="text-3xl font-bold text-center mb-12 text-gray-900 hidden">
             Pricing Table
           </h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-            {pricingPlans?.map((plan, index) => (
-              <div key={index} className="flex w-full justify-center">
-                <PricingCard plan={plan} />
-              </div>
-            ))}
-          </div>
         </div>
       </div>
+      <PlansCardsPopup
+        open={open}
+        setOpen={setOpen}
+        extractedPlans={updatedPricingPlans}
+      />
     </>
   );
 };

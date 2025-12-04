@@ -1,4 +1,7 @@
 import { CheckFillIcon } from "@/icons";
+import { addSubscription, updateMember } from "@/services/DashboardServices";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const FeatureItem = ({ text, isIncluded, highlight }: any) => {
   console.log("🚀 ~ FeatureItem ~ isIncluded:", isIncluded);
@@ -33,12 +36,42 @@ const CustomButton = ({ variant, children, onClick }: any) => {
   );
 };
 export const PricingCard = ({ plan }: any) => {
+  const router = useRouter();
   const isPro = plan.highlight;
   const cardClasses = isPro
-    ? "bg-gray-800 text-white ring-2 ring-violet-600/50"
+    ? "bg-[#151E2D] text-white"
     : "bg-white text-gray-900 border border-gray-100";
   const descriptionColor = isPro ? "text-[#ABACAF]" : "text-secondary-text";
   const featureListTextColor = isPro ? "text-white" : "text-primary-text";
+  const handlePlane = async (planId: string) => {
+    try {
+      const result = await addSubscription({ plan: planId });
+      if (!result) {
+        toast.error("Subscription failed: No response from API");
+        return { res: null, data: null };
+      }
+      const { status, data } = result;
+      if (status === 200) {
+        console.log("🚀 ~ handlePlane ~ data:", data);
+        router.push(data?.session);
+      }
+      // Update Member
+      const updated = await updateMember();
+      if (!updated) {
+        toast.error("Update user failed: No response from API");
+        return { res: null, data: null };
+      }
+      const { status: upStatus, data: upData } = updated;
+      if (upStatus === 200) {
+        toast.success("Subscription updated successfully!");
+        return { res: { status: upStatus }, data: upData };
+      }
+      return { res: null, data: null };
+    } catch (error) {
+      console.log(error);
+      return { res: null, data: null };
+    }
+  };
 
   return (
     <div
@@ -68,7 +101,7 @@ export const PricingCard = ({ plan }: any) => {
         <div className="pb-4 border-b border-[#E5E7EB] mb-4">
           <CustomButton
             variant={plan.buttonVariant}
-            onClick={() => console.log(`Selected ${plan.title}`)}
+            onClick={() => handlePlane(plan?.planId)}
           >
             {plan.buttonText}
           </CustomButton>

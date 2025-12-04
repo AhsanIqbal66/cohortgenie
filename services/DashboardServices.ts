@@ -54,21 +54,17 @@ export const getCreditmemo = async () => {
 };
 export const useGetUser = () => {
   const dispatch = useDispatch();
-
   const getUser = async () => {
     try {
       const result = await getLoginUser();
-
       if (!result) {
         toast.error("Login failed: No response from API");
         return { res: null, data: null };
       }
-
       const { status, data } = result;
-
       if (status === 200) {
-        dispatch(loginn(data.user)); // 👍 dispatch here
-        return { res: { status }, data }; // 👍 return clean data
+        dispatch(loginn(data.user));
+        return { res: { status }, data };
       } else {
         toast.error("Login failed");
         return { res: null, data: null };
@@ -79,7 +75,6 @@ export const useGetUser = () => {
       return { res: null, data: null };
     }
   };
-
   return { getUser };
 };
 
@@ -94,6 +89,23 @@ export const getPlans = async () => {
   return handleApiCall(() =>
     authRequest({
       url: `${ENDPOINTS.PLANS}`,
+    })
+  );
+};
+export const addSubscription = async (values: any) => {
+  console.log("🚀 ~ AddSubscription ~ values:", values);
+  return handleApiCall(() =>
+    authRequest({
+      url: `${ENDPOINTS.ADD_SUBSCRIPTION}`,
+      method: "POST",
+      data: values,
+    })
+  );
+};
+export const updateMember = async () => {
+  return handleApiCall(() =>
+    authRequest({
+      url: `${ENDPOINTS.UPDATE_MEMBER}`,
     })
   );
 };

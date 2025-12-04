@@ -373,7 +373,6 @@ export const pricingPlans = [
     title: "Basic Plan",
     description:
       "Best for freelancers or early-stage stores getting started with cohort analytics.",
-    price: "$19",
     isMonthly: true,
     features: [
       { text: "Lorem ipsum dolor sit amet", included: true },
@@ -387,30 +386,9 @@ export const pricingPlans = [
     highlightColor: "text-green-600", // Green for Basic/Growth
   },
   {
-    title: "Pro Plan",
-    // Note: The image shows the description in the dark header, not the white body.
-    // The implementation below places it in the card header for separation.
-    description:
-      "Ideal for growing businesses needing advanced reporting and retention tracking.",
-    price: "$49",
-    isMonthly: true,
-    features: [
-      { text: "Lorem ipsum dolor sit amet", included: true },
-      { text: "Lorem ipsum dolor sit amet", included: true },
-      { text: "Lorem ipsum dolor sit amet", included: true },
-      { text: "Lorem ipsum dolor sit amet", included: true },
-      { text: "Lorem ipsum dolor sit amet", included: false },
-    ],
-    buttonText: "Get Started With Pro",
-    buttonVariant: "pro", // Purple background
-    highlight: true,
-    highlightColor: "text-green-400", // Lighter Green for Pro
-  },
-  {
     title: "Growth Plan",
     description:
       "Designed for scaling brands that require deep analytics, automations, and faster syncing.",
-    price: "$99",
     isMonthly: true,
     features: [
       { text: "Lorem ipsum dolor sit amet", included: true },
@@ -423,5 +401,25 @@ export const pricingPlans = [
     buttonVariant: "outline", // Purple border/text
     highlight: false,
     highlightColor: "text-green-600", // Green for Basic/Growth
+  },
+
+  {
+    title: "Pro Plan",
+    // Note: The image shows the description in the dark header, not the white body.
+    // The implementation below places it in the card header for separation.
+    description:
+      "Ideal for growing businesses needing advanced reporting and retention tracking.",
+    isMonthly: true,
+    features: [
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: true },
+      { text: "Lorem ipsum dolor sit amet", included: false },
+    ],
+    buttonText: "Get Started With Pro",
+    buttonVariant: "pro", // Purple background
+    highlight: true,
+    highlightColor: "text-green-400", // Lighter Green for Pro
   },
 ];
