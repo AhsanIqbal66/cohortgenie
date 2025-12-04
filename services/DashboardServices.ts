@@ -58,7 +58,7 @@ export const useGetUser = () => {
     try {
       const result = await getLoginUser();
       if (!result) {
-        toast.error("Login failed: No response from API");
+        toast.error("Update user failed: No response from API");
         return { res: null, data: null };
       }
       const { status, data } = result;
@@ -102,10 +102,43 @@ export const addSubscription = async (values: any) => {
     })
   );
 };
-export const updateMember = async () => {
+export const updateMember = async (values: any) => {
   return handleApiCall(() =>
     authRequest({
       url: `${ENDPOINTS.UPDATE_MEMBER}`,
+      method: "POST",
+      data: values,
     })
   );
+};
+export const useGetUpdateMember = () => {
+  const dispatch = useDispatch();
+
+  const getUpdateMember = async (values: any) => {
+    try {
+      const result = await updateMember(values);
+
+      if (!result) {
+        toast.error("Update failed: No response from API");
+        return { res: null, data: null };
+      }
+
+      const { status, data } = result;
+
+      if (status === 200) {
+        dispatch(loginn(data.user));
+        toast.success("User updated successfully!");
+        return { res: { status }, data };
+      } else {
+        toast.error("Update failed");
+        return { res: null, data: null };
+      }
+    } catch (error: any) {
+      console.log("Update Member Error:", error);
+      toast.error(error?.data?.error || "Unexpected error occurred");
+      return { res: null, data: null };
+    }
+  };
+
+  return { getUpdateMember };
 };

@@ -513,7 +513,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
         <Table>
           <TableHeader>
             <TableRow>
-              {columns.map((column) => (
+              {columns?.map((column) => (
                 <TableHead
                   key={column.id}
                   className={`font-medium text-primary-text text-sm bg-[#EDF7FF] px-2 lg:p-4`}
@@ -566,9 +566,9 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
                 </TableCell>
               </TableRow>
             ) : (
-              paginatedData.map((row) => (
+              paginatedData.map((row,i) => (
                 <TableRow
-                  key={row.id}
+                  key={i}
                   onClick={clickable ? () => handleRowClick(row) : undefined}
                   className={`even:bg-[#F9FBFC] odd:bg-white ${clickable ? "cursor-pointer  hover:bg-gray-100" : ""}`}
                 >

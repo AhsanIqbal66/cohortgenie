@@ -1,6 +1,11 @@
 import { CheckFillIcon } from "@/icons";
-import { addSubscription, updateMember } from "@/services/DashboardServices";
-import { useRouter } from "next/navigation";
+import {
+  addSubscription,
+  updateMember,
+  useGetUpdateMember,
+} from "@/services/DashboardServices";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const FeatureItem = ({ text, isIncluded, highlight }: any) => {
@@ -37,6 +42,10 @@ const CustomButton = ({ variant, children, onClick }: any) => {
 };
 export const PricingCard = ({ plan }: any) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { getUpdateMember } = useGetUpdateMember();
+  const session_id = searchParams.get("session_id");
+  console.log("🚀 ~ PricingCard ~ session_id:", session_id);
   const isPro = plan.highlight;
   const cardClasses = isPro
     ? "bg-[#151E2D] text-white"
@@ -56,23 +65,20 @@ export const PricingCard = ({ plan }: any) => {
         router.push(data?.session);
       }
       // Update Member
-      const updated = await updateMember();
-      if (!updated) {
-        toast.error("Update user failed: No response from API");
-        return { res: null, data: null };
-      }
-      const { status: upStatus, data: upData } = updated;
-      if (upStatus === 200) {
-        toast.success("Subscription updated successfully!");
-        return { res: { status: upStatus }, data: upData };
-      }
-      return { res: null, data: null };
     } catch (error) {
       console.log(error);
       return { res: null, data: null };
     }
   };
+  useEffect(() => {
+    if (session_id) {
+      toast.success("Subscription updated successfully!");
 
+      getUpdateMember({ sessionId: session_id });
+ toast.success("Subscription updated successfully!");
+      router.replace("/dashboard/billing");
+    }
+  }, [session_id]);
   return (
     <div
       className={`w-full border border-[#E5E7EB] rounded-2xl p-2.5 transition-all duration-300 ${cardClasses} flex flex-col h-full overflow-hidden  ${isPro ? "bg-[#151E2D]" : "bg-white"}`}

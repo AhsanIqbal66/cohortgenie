@@ -1,10 +1,8 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { parseCookies } from "nookies";
 import {
   ApiResponseType,
   AuthRequestParams,
   ErrorData,
-  SessionData,
 } from "./utils/models/auth.model";
 const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 import { getCookies, removeCookies } from "@/hooks/useAuth";
@@ -18,10 +16,7 @@ export const authRequest = async <T, D = unknown>({
   data,
   headers,
 }: AuthRequestParams<D>): Promise<ApiResponseType<T>> => {
-  // const session: SessionData | null =
-  //   typeof window !== "undefined"
-  //     ? (JSON.parse(localStorage.getItem("user") || "{}") as SessionData | null)
-  //     : null;
+
   const token = getCookies("token");
   return new Promise((resolve, reject) => {
     if (token) {
@@ -78,7 +73,7 @@ export const publicRequest = async <T, D = unknown>({
 export const handleApiCall = async <T>(
   requestFn: () => Promise<any>
 ): Promise<{ status: number; data: any } | undefined> => {
-  const token = getCookies("token");
+  // const token = getCookies("token");
   try {
     const { status, data } = await requestFn();
     return { status, data };
