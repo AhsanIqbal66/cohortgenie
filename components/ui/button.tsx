@@ -22,7 +22,8 @@ const buttonVariants = cva(
         main: "bg-[#9B6EEE] border border-[#9B6EEE] hover:text-[#9B6EEE] text-white hover:bg-transparent",
       },
       size: {
-        default: "py-[9px] px-8 text-base  has-[>svg]:px-4",
+        default:
+          "py-[9px] px-3.5 md:px-8 text-sm xl:text-base has-[>svg]:px-3 md:has-[>svg]:px-4",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",

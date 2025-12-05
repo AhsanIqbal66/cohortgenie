@@ -1,6 +1,7 @@
 "use client";
 import InteStep1 from "@/components/common/integrations/InteStep1";
 import InteStep2 from "@/components/common/integrations/InteStep2";
+import InteStep3 from "@/components/common/integrations/InteStep3";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@/hooks/ApiHooks/useLogin";
 import { LogOut } from "lucide-react";
@@ -39,6 +40,7 @@ export default function IntegrationPage() {
         ) : (
           ""
         )}
+        {step=== "3" && <InteStep3 />}
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ const ENDPOINTS: Endpoints = {
   PLANS: "/subscription/billing/plans",
   ADD_SUBSCRIPTION: "/subscription/billing/add-subscription",
   UPDATE_MEMBER: "/subscription/billing/update-member",
+  CANCEL_SUBSCRIPTION: "/subscription/billing/manage-subscription",
 };
 
 export { ENDPOINTS };

@@ -10,8 +10,11 @@ import DynamicTable from "@/components/DynamicTable";
 import { billingData, pricingPlans } from "@/constants";
 import jsPDF from "jspdf";
 import { useGetPlans } from "@/hooks/ReactQueryHooks/dashboard";
-import { PricingCard } from "@/components/common/PricingCard";
 import PlansCardsPopup from "@/components/common/PlansCardsPopup";
+import { cancelPlan } from "@/services/DashboardServices";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const generateReceiptPDF = async (row: any) => {
   const pdf = new jsPDF("p", "mm", "a4");
@@ -131,14 +134,28 @@ export const billingColumns: any = [
 ];
 
 const page = () => {
+  const router = useRouter();
+  const userData = useSelector((state: RootState) => state.user.user);
   const [isHovered, setIsHovered] = useState(false);
-  const [open, setOpen] = useState(true);
-  const planName: string = "Pro Plan";
-  const planPrice: string = "$99/month";
+  const [open, setOpen] = useState(false);
+  const planName: string = userData?.planName || "Plan";
+  const planPrice: string = `$${userData?.subscription_Amount}/month`;
   const nextBillingDate: string = "December 4, 2025";
   const status: string = "Active";
-  const handleCancel = () => {
-    console.log("Cancel Plan clicked");
+  const handleCancel = async () => {
+    try {
+      const result = await cancelPlan();
+      if (!result) {
+        return { res: null, data: null };
+      }
+      const { status, data } = result;
+      if (status === 200) {
+        router.push(data?.session);
+      }
+    } catch (error) {
+      console.log(error);
+      return { res: null, data: null };
+    }
   };
   const { data: plansData, isLoading } = useGetPlans();
 
@@ -159,16 +176,14 @@ const page = () => {
     if (!extractedPlans?.length) return;
 
     const newPlans = pricingPlans.map((existingPlan, index) => {
-      // Index mapping: swap positions
       let extractedIndex;
       if (index === 1) {
-        extractedIndex = 1; // Index 1 gets data from extractedPlans[1] (which is index 3 from original)
+        extractedIndex = 1;
       } else if (index === 3) {
-        extractedIndex = 0; // Index 3 gets data from extractedPlans[0] (which is index 1 from original)
+        extractedIndex = 0;
       } else {
-        extractedIndex = index; // Other indices remain unchanged
+        extractedIndex = index;
       }
-
       if (extractedPlans[extractedIndex]) {
         return {
           ...existingPlan,
@@ -190,9 +205,9 @@ const page = () => {
         </p>
       </div>
 
-      <div className="flex gap-6 mb-8">
-        <Card className="w-[40%]">
-          <CardContent className="pt-6 flex flex-col h-full ">
+      <div className="flex-col flex xl:flex-row gap-3.5 md:gap-6 xl:flex mb-8">
+        <Card className="w-full xl:w-[40%]">
+          <CardContent className=" flex flex-col h-full ">
             <div>
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-lg font-medium text-primary-text">
@@ -237,8 +252,8 @@ const page = () => {
             </div>
           </CardContent>
         </Card>
-        <Card className="w-[60%]">
-          <CardContent className="pt-6">
+        <Card className="w-full xl:w-[60%]">
+          <CardContent className="">
             <DynamicTable columns={billingColumns} data={billingData} />
           </CardContent>
         </Card>
@@ -266,14 +281,6 @@ const page = () => {
         >
           Open Stripe Portal <ArrowRight size={16} />
         </Button>
-      </div>
-
-      <div className="min-h-screen bg-gray-50 p-4 sm:p-10 font-[Inter]">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-12 text-gray-900 hidden">
-            Pricing Table
-          </h1>
-        </div>
       </div>
       <PlansCardsPopup
         open={open}

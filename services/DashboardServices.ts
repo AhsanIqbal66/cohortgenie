@@ -93,7 +93,6 @@ export const getPlans = async () => {
   );
 };
 export const addSubscription = async (values: any) => {
-  console.log("🚀 ~ AddSubscription ~ values:", values);
   return handleApiCall(() =>
     authRequest({
       url: `${ENDPOINTS.ADD_SUBSCRIPTION}`,
@@ -113,7 +112,6 @@ export const updateMember = async (values: any) => {
 };
 export const useGetUpdateMember = () => {
   const dispatch = useDispatch();
-
   const getUpdateMember = async (values: any) => {
     try {
       const result = await updateMember(values);
@@ -141,4 +139,11 @@ export const useGetUpdateMember = () => {
   };
 
   return { getUpdateMember };
+};
+export const cancelPlan = async () => {
+  return handleApiCall(() =>
+    authRequest({
+      url: `${ENDPOINTS.CANCEL_SUBSCRIPTION}`,
+    })
+  );
 };

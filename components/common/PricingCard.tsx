@@ -61,27 +61,27 @@ export const PricingCard = ({ plan }: any) => {
       }
       const { status, data } = result;
       if (status === 200) {
-        console.log("🚀 ~ handlePlane ~ data:", data);
         router.push(data?.session);
       }
-      // Update Member
     } catch (error) {
       console.log(error);
       return { res: null, data: null };
     }
   };
   useEffect(() => {
-    if (session_id) {
-      toast.success("Subscription updated successfully!");
-
-      getUpdateMember({ sessionId: session_id });
- toast.success("Subscription updated successfully!");
-      router.replace("/dashboard/billing");
-    }
+    const updateUser = async () => {
+      if (session_id) {
+        toast.success("Subscription updated successfully!");
+        const result = await getUpdateMember({ sessionId: session_id });
+        router.replace("/dashboard/billing");
+      }
+    };
+    updateUser();
   }, [session_id]);
+
   return (
     <div
-      className={`w-full border border-[#E5E7EB] rounded-2xl p-2.5 transition-all duration-300 ${cardClasses} flex flex-col h-full overflow-hidden  ${isPro ? "bg-[#151E2D]" : "bg-white"}`}
+      className={`w-full border border-[#E5E7EB] rounded-2xl p-2.5 transition-all duration-300 ${cardClasses} flex flex-col h-full overflow-hidden shadow-[0_0_4px_0_rgba(0,0,0,0.1)] ${isPro ? "bg-[#151E2D]" : "bg-white"}`}
     >
       <div
         className={`shadow-[0_0_4px_0_rgba(0,0,0,0.1)] rounded-xl p-4 mb-4 ${isPro ? "bg-[#2E3643]" : "bg-white"}`}

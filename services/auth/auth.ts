@@ -32,14 +32,7 @@ export const VerifyCode = async (values: any) =>
       data: values,
     })
   );
-export const TwoFACode = async (values: any) =>
-  await handleApiCall<AuthResponse>(() =>
-    publicRequest<AuthResponse>({
-      url: ENDPOINTS.TWOFA,
-      method: "POST",
-      data: values,
-    })
-  );
+
 export const ForgotPasswordd = async (values: any) =>
   await handleApiCall<AuthResponse>(() =>
     publicRequest<AuthResponse>({
@@ -54,13 +47,5 @@ export const ResetPasswordd = async (values: any) =>
       url: ENDPOINTS.RESETPASSWORD,
       method: "POST",
       data: values,
-    })
-  );
-export const RoleUpdate = async (id?: any, role?: any) =>
-  await handleApiCall<AuthResponse>(() =>
-    authRequest<AuthResponse>({
-      url: id
-        ? `${ENDPOINTS.SWITCH_ROLE}?${role}=${id}`
-        : `${ENDPOINTS.SWITCH_ROLE}`,
     })
   );
